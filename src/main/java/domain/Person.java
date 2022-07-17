@@ -1,6 +1,6 @@
 package domain;
 
-public class Persona { //Table Persona
+public class Person { //Table Person
 
     //Columns
     private int personId;
@@ -9,16 +9,16 @@ public class Persona { //Table Persona
     private String personEmail;
     private long personPhone;
 
-    public Persona(){} //Empty Constructor
-    public Persona(int id){this.personId = id;} //personId constructor
+    public Person(){} //Empty Constructor
+    public Person(int id){this.personId = id;} //personId constructor
     
-    public Persona(String personName, String personLastname, String personEmail, long personPhone ) {
+    public Person(String personName, String personLastname, String personEmail, long personPhone ) {
         this.personName = personName;
         this.personLastname = personLastname;
         this.personEmail = personEmail;
         this.personPhone = personPhone;
     }
-    public Persona(int personId, String personName, String personLastname, String personEmail, long personPhone) {
+    public Person(int personId, String personName, String personLastname, String personEmail, long personPhone) {
         this.personId = personId;
         this.personName = personName;
         this.personLastname = personLastname;
@@ -60,7 +60,7 @@ public class Persona { //Table Persona
     
     @Override
     public String toString() {
-        return "Persona [personEmail=" + personEmail + ", personId=" + personId + ", personLastname=" + personLastname
+        return "Person [personEmail=" + personEmail + ", personId=" + personId + ", personLastname=" + personLastname
                 + ", personName=" + personName + ", personPhone=" + personPhone + "]";
     }
 
