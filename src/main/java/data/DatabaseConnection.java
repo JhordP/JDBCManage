@@ -5,7 +5,7 @@ import java.sql.*;
 public class DatabaseConnection {
     //Connection String
     private static final String JDBC_URL = 
-    "jdbc:mysql://localhost:3306/db?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    "jdbc:mysql://localhost:3306/test?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
 
     //Connection User                               //Connection Password
     private static final String JDBC_USER = "root"; private static final String JDBC_PW = "admin";    
@@ -16,7 +16,7 @@ public class DatabaseConnection {
     }
 
     //Closes all the given connections
-    public void closeConnections(Connection dbconnection, Statement declaration, ResultSet queryResult) throws SQLException{
+    public static void closeConnections(Connection dbconnection, Statement declaration, ResultSet queryResult) throws SQLException{
         queryResult.close();
         declaration.close();
         dbconnection.close();
