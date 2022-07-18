@@ -11,12 +11,15 @@ public class DatabaseConnection {
     private static final String JDBC_USER = "root"; private static final String JDBC_PW = "admin";    
 
     //Uses Driver Manager to get the database connection using user and password
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PW);
-    }
+    public static Connection getConnection() throws SQLException { return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PW); }
 
     //Closes all the given connections
-    public static void closeConnections(Connection dbconnection, Statement declaration, ResultSet queryResult) throws SQLException{
+    public static void closeConnections(Connection dbconnection, Statement declaration, ResultSet queryResult) throws SQLException{ //Uses Statement
+        queryResult.close();
+        declaration.close();
+        dbconnection.close();
+    }
+    public static void closeConnections(Connection dbconnection, PreparedStatement declaration, ResultSet queryResult) throws SQLException{ //Uses PreparedStatement
         queryResult.close();
         declaration.close();
         dbconnection.close();
