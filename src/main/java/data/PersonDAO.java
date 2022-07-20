@@ -7,6 +7,7 @@ import domain.Person;
 
 public class PersonDAO { //DAO: Data Access Object
     private static final String SQL_SELECT = "SELECT * FROM person;";
+    private static final String SQL_INSERT = "INSERT INTO person(person_name, person_lastname, person_email, person_phone) VALUES(?, ?, ?, ?)";
 
     public List<Person> select() {
         Connection connection = null;
@@ -18,7 +19,7 @@ public class PersonDAO { //DAO: Data Access Object
         try {
             connection = DatabaseConnection.getConnection();
             statement = connection.prepareStatement(SQL_SELECT);
-            result = statement.executeQuery();
+            result = statement.executeQuery(); // Method .executeQuery(); just works for statement that doesn't modify the DB status
             while (result.next()) {
                 //Takes each column to its respective variables so...
                 int personID = result.getInt("person_id");
@@ -39,9 +40,39 @@ public class PersonDAO { //DAO: Data Access Object
                 DatabaseConnection.closeConnections(connection, statement, result);
             } catch (SQLException e) {
                 System.out.println("An error has ocurred trying to close the Data Base connection. "+e.getMessage());
-                e.printStackTrace();
+                e.printStackTrace(System.out);
             }
         }
         return persons;
+    }
+
+    public int insert(Person person) {
+        Connection con = null;
+        PreparedStatement statement = null;
+        int numRecords = 0;
+        
+        try {
+            con = DatabaseConnection.getConnection();
+            statement = con.prepareStatement(SQL_INSERT);
+
+            statement.setString(1, person.getPersonName());
+            statement.setString(2, person.getPersonLastname());
+            statement.setString(3, person.getPersonEmail());
+            statement.setLong(4, person.getPersonPhone());
+
+            numRecords = statement.executeUpdate(); //When the statement/query modifies the DB status, shall use .executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("An error has ocurred trying to reach the Data Base. "+e.getMessage());
+            e.printStackTrace(System.out);
+        } finally {
+            try {
+                DatabaseConnection.close(statement);
+                DatabaseConnection.close(con);
+            } catch (SQLException e) {
+                System.out.println("An error has ocurred trying to close the Data Base connection. "+e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        return numRecords;   
     }
 }
