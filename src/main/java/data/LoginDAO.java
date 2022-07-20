@@ -1,0 +1,122 @@
+package data;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import domain.Login;
+
+public class LoginDAO {
+    private static final String SQL_SELECT = "SELECT * FROM login";
+    private static final String SQL_INSERT = "INSERT INTO login(username, passw) VALUES(?, ?)";
+    private static final String SQL_UPDATE = "UPDATE login SET username = ?, passw = ? WHERE id = ?";
+    private static final String SQL_DELETE = "DELETE FROM login WHERE id = ?";
+    public List<Login> select() {
+        Connection con = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        List<Login> users = new ArrayList<>();
+
+        try {
+            con = DatabaseConnection.getConnection();
+            statement = con.prepareStatement(SQL_SELECT);
+            rs = statement.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String usr = rs.getString("username");
+                String pw = rs.getString("passw");
+                Login user = new Login(id, usr, pw);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace(System.out);
+        } finally {
+            try {
+                DatabaseConnection.closeConnections(con, statement, rs);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace(System.out);
+            }
+        }
+        return users;
+    }
+
+    public int insert(Login user) {
+        Connection con = null;
+        PreparedStatement statement = null;
+        int numRecords = 0;
+        try {
+            con = DatabaseConnection.getConnection();
+            statement = con.prepareStatement(SQL_INSERT);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassw());
+
+            numRecords = statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace(System.out);
+        } finally {
+            try {
+                DatabaseConnection.close(statement);
+                DatabaseConnection.close(con);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace(System.out);
+            }
+        }
+        return numRecords;
+    }
+
+    public int update(Login user) {
+        Connection con = null;
+        PreparedStatement statement = null;
+        int numRecords = 0;
+        try {
+            con = DatabaseConnection.getConnection();
+            statement = con.prepareStatement(SQL_UPDATE);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassw());
+            statement.setInt(3, user.getId());
+
+            numRecords = statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace(System.out);
+        } finally {
+            try {
+                DatabaseConnection.close(statement);
+                DatabaseConnection.close(con);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace(System.out);
+            }
+        }
+        return numRecords;
+    }
+
+    public int delete(Login user) {
+        Connection con = null;
+        PreparedStatement statement = null;
+        int numRecords = 0;
+        try {
+            con = DatabaseConnection.getConnection();
+            statement = con.prepareStatement(SQL_DELETE);
+            statement.setInt(1, user.getId());
+
+            numRecords = statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace(System.out);
+        } finally {
+            try {
+                DatabaseConnection.close(statement);
+                DatabaseConnection.close(con);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace(System.out);
+            }
+        }
+        return numRecords;
+    }
+}

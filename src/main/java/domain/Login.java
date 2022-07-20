@@ -15,6 +15,11 @@ public class Login {
         this.username = username;
         this.passw = passw;
     }
+    public Login(int id, String username, String passw){
+        this.id = id;
+        this.username = username;
+        this.passw = passw;
+    }
     
     //Getters & Setters
     public int getId() {
