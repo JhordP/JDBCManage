@@ -12,12 +12,15 @@ public class Person { //Table Person
     public Person(){} //Empty Constructor
     public Person(int id){this.personId = id;} //personId constructor
     
+    //Not ID data constructor
     public Person(String personName, String personLastname, String personEmail, long personPhone ) {
         this.personName = personName;
         this.personLastname = personLastname;
         this.personEmail = personEmail;
         this.personPhone = personPhone;
     }
+
+    //All columns constructor
     public Person(int personId, String personName, String personLastname, String personEmail, long personPhone) {
         this.personId = personId;
         this.personName = personName;

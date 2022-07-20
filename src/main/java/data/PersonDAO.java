@@ -6,7 +6,7 @@ import java.util.List;
 import domain.Person;
 
 public class PersonDAO { //DAO: Data Access Object
-    private static final String SQL_SELECT = "SELECT * FROM persona;";
+    private static final String SQL_SELECT = "SELECT * FROM person;";
 
     public List<Person> select() {
         Connection connection = null;
@@ -18,7 +18,7 @@ public class PersonDAO { //DAO: Data Access Object
         try {
             connection = DatabaseConnection.getConnection();
             statement = connection.prepareStatement(SQL_SELECT);
-            result = statement.executeQuery(SQL_SELECT);
+            result = statement.executeQuery();
             while (result.next()) {
                 //Takes each column to its respective variables so...
                 int personID = result.getInt("person_id");
