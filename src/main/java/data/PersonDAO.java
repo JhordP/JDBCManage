@@ -1,8 +1,7 @@
 package data;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import domain.Person;
 
 public class PersonDAO { //DAO: Data Access Object
@@ -10,6 +9,53 @@ public class PersonDAO { //DAO: Data Access Object
     private static final String SQL_INSERT = "INSERT INTO person(person_name, person_lastname, person_email, person_phone) VALUES(?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE person SET person_name = ?, person_lastname = ?, person_email = ?, person_phone = ? WHERE (person_id = ?)";
     private static final String SQL_DELETE = "DELETE FROM person WHERE person_id = ?";
+
+    //Menu
+    public List<Person> menu(int option) {
+        var input = new Scanner(System.in);
+        List<Person> personList = new ArrayList<>();
+        Person person = null;
+
+        int id;
+        String name, lastName, email;
+        Long phone;
+
+        switch (option) {
+            case 1:
+                personList = select();
+                break;
+            case 2:
+                System.out.print("Name: "); name = input.next();
+                System.out.print("Last Name: "); lastName = input.next();
+                System.out.print("E-Mail: "); email = input.next();
+                System.out.print("Phone: "); phone = Long.parseLong(input.next());
+                person = new Person(name, lastName, email, phone);
+                insert(person);
+                personList = select();
+                break;
+            case 3:
+                System.out.print("Name: "); name = input.next();
+                System.out.print("Last Name: "); lastName = input.next();
+                System.out.print("E-Mail: "); email = input.next();
+                System.out.print("Phone: "); phone = input.nextLong();
+                System.out.print("ID number to put the data: "); id = Integer.parseInt(input.next());
+                person = new Person(id, name, lastName, email, phone);
+                update(person);
+                personList = select();
+                break;
+            case 4:
+                System.out.print("ID number: "); id = input.nextInt();
+                person = new Person(id);
+                delete(person);
+                personList = select();
+                break;
+            default:
+                System.out.println("Invalid option number. Try again.");
+                break;
+        }
+        input.close();
+        return personList;
+    }
 
     public List<Person> select() {
         Connection connection = null;
