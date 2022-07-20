@@ -28,10 +28,17 @@ public class TestPersonDrive {
         // personList.forEach(p -> {System.out.println(p);});
 
         //Updating
-        var person = new Person(5, "Jhederly", "Polanco", "jhederlypolanco@gmail.com", 8493992117L);
-        personDAO.update(person);
+        // var person = new Person(5, "Jhederly", "Polanco", "jhederlypolanco@gmail.com", 8493992117L);
+        // personDAO.update(person);
 
+        // personList = personDAO.select();
+        // personList.forEach(p -> {System.out.println(p);});
+
+        //Delete
+        var person = new Person(6);
+        personDAO.delete(person);
         personList = personDAO.select();
         personList.forEach(p -> {System.out.println(p);});
+
     }
 }

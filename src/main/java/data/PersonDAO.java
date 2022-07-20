@@ -9,7 +9,7 @@ public class PersonDAO { //DAO: Data Access Object
     private static final String SQL_SELECT = "SELECT * FROM person;";
     private static final String SQL_INSERT = "INSERT INTO person(person_name, person_lastname, person_email, person_phone) VALUES(?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE person SET person_name = ?, person_lastname = ?, person_email = ?, person_phone = ? WHERE (person_id = ?)";
-    private static final String SQL_DELETE = "DELETE FROM person WHERE id = ?";
+    private static final String SQL_DELETE = "DELETE FROM person WHERE person_id = ?";
 
     public List<Person> select() {
         Connection connection = null;
@@ -110,4 +110,30 @@ public class PersonDAO { //DAO: Data Access Object
         return numRecords;   
     }
 
+    
+    public int delete(Person person) {
+        Connection con = null;
+        PreparedStatement statement = null;
+        int numRecords = 0;
+
+        try {
+            con = DatabaseConnection.getConnection();
+            statement = con.prepareStatement(SQL_DELETE);
+
+            statement.setInt(1, person.getPersonId());
+            numRecords = statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("An error has ocurred trying to reach the Data Base. "+e.getMessage());
+            e.printStackTrace(System.out);
+        } finally {
+            try {
+                DatabaseConnection.close(statement);
+                DatabaseConnection.close(con);
+            } catch (SQLException e) {
+                System.out.println("An error has ocurred trying to close the Data Base connection. "+e.getMessage());
+                e.printStackTrace(System.out);
+            }
+        }
+        return numRecords;
+    }
 }
