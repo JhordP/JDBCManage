@@ -18,11 +18,22 @@ SELECT * FROM test.person; /*Select columns from table, you can use WHERE condit
 
 /*Inserting values into table: INSERT INTO tableName(columns...) VALUES (values...)*/
 INSERT INTO test.person(person_name, person_lastname, person_email, person_phone) 
-VALUES ("Carla", "Avendano", "c.avendano@hotmail.com",56986196636);
+VALUES ("Name", "Lastname", "Email",9999999999);
 
 INSERT INTO test.person(person_name, person_lastname, person_email, person_phone) 
-VALUES ("Jhordany", "Polanco", "j.horda.ny@hotmail.com",18097892117);
+VALUES ("Name", "Lastname", "Email",9999999999);
 
 /*Updating table: UPDATE tableName SET column = value WHERE condition [Parenthesis is optional]*/
-UPDATE person SET person_phone = 18297892117 WHERE (person_id = 2);
+UPDATE person SET person_phone = 18091112222 WHERE (person_id = 2);
+
+/* User Administration / Login */
+
+CREATE TABLE login (
+id INT NOT NULL auto_increment,
+username VARCHAR(15),
+passw VARCHAR(50),
+PRIMARY KEY(id)
+);
+
+SELECT * FROM login;
 
