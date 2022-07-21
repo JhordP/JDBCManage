@@ -2,6 +2,7 @@ package data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import domain.Login;
 
@@ -10,6 +11,49 @@ public class LoginDAO {
     private static final String SQL_INSERT = "INSERT INTO login(username, passw) VALUES(?, ?)";
     private static final String SQL_UPDATE = "UPDATE login SET username = ?, passw = ? WHERE id = ?";
     private static final String SQL_DELETE = "DELETE FROM login WHERE id = ?";
+
+        //Menu
+        public List<Login> menu(int option) {
+            var input = new Scanner(System.in);
+            List<Login> userList = new ArrayList<>();
+            Login user = null;
+    
+            int id;
+            String username;
+            String password;
+    
+            switch (option) {
+                case 1:
+                    userList = select();
+                    break;
+                case 2:
+                    System.out.print("New Username: "); username = input.next();
+                    System.out.print("New Username's password: "); password = input.next();
+                    user = new Login(username, password);
+                    insert(user);
+                    userList = select();
+                    break;
+                case 3:
+                    System.out.print("Username: "); username = input.next();
+                    System.out.print("Password: "); password = input.next();
+                    System.out.println("User ID to be modified: "); id = input.nextInt();
+                    update(user);
+                    userList = select();
+                    break;
+                case 4:
+                    System.out.print("ID number: "); id = input.nextInt();
+                    user = new Login(id);
+                    delete(user);
+                    userList = select();
+                    break;
+                default:
+                    System.out.println("Invalid option number. Try again.");
+                    break;
+            }
+            input.close();
+            return userList;
+        }
+
     public List<Login> select() {
         Connection con = null;
         PreparedStatement statement = null;
@@ -118,5 +162,22 @@ public class LoginDAO {
             }
         }
         return numRecords;
+    }
+
+    public boolean validate(Login user) {
+        List<Login> users = select();
+        boolean valid = false;
+        for (Login usr : users) {
+            if ((user.getUsername().equals(usr.getUsername())) && (user.getPassw().equals(usr.getPassw()))) 
+            {
+                valid = true;
+            }
+        }
+
+        if (valid) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

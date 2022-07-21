@@ -2,6 +2,8 @@ package data;
 
 import java.sql.*;
 import java.util.*;
+
+import domain.Login;
 import domain.Person;
 
 public class PersonDAO { //DAO: Data Access Object
@@ -181,5 +183,23 @@ public class PersonDAO { //DAO: Data Access Object
             }
         }
         return numRecords;
+    }
+
+    public boolean validate(Login user) {
+        LoginDAO loginDAO = new LoginDAO();
+        List<Login> users = loginDAO.select();
+        boolean valid = false;
+        for (Login usr : users) {
+            if ((user.getUsername().equals(usr.getUsername())) && (user.getPassw().equals(usr.getPassw()))) 
+            {
+                valid = true;
+            }
+        }
+
+        if (valid) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

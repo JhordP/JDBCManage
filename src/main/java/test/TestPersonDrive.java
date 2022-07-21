@@ -1,14 +1,37 @@
 package test;
 import java.util.*;
 
+import data.LoginDAO;
 import data.PersonDAO;
+import domain.Login;
 import domain.Person;
 
 public class TestPersonDrive {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         PersonDAO personDAO = new PersonDAO();
+        LoginDAO loginDAO = new LoginDAO();
+        Login usr = new Login();
         int option = 0;
+        boolean valid;
+
+        System.out.print("Enter username: ");
+        usr.setUsername(input.next());
+        System.out.print("Enter password: ");
+        usr.setPassw(input.next());
+
+        valid = loginDAO.validate(usr);
+        
+        while (!valid) {
+            System.out.println("Login Access Denied: Wrong username or password.");
+            System.out.print("Enter username: ");
+            usr.setUsername(input.next());
+            System.out.print("Enter password: ");
+            usr.setPassw(input.next());
+            
+            valid = loginDAO.validate(usr);
+        }
+
         List<Person> persons = new ArrayList<>();
         do {
             System.out.println("Type the operation number");
