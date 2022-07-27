@@ -189,18 +189,17 @@ public class LoginDAO {
             for (Login credential : users) {
                 if ((user.getUsername().equals(credential.getUsername())) && (user.getPassw().equals(credential.getPassw()))) 
                 {
+                    //return true; //Possible solution 
                     valid = true;
-                    break;
+                    
                 }
             }
-            ++attempts;
-            // if (valid == false) {
-            //     ++attempts;
-            // }
+            if (valid == false) {
+                ++attempts;
+            }
             if (attempts>4) {
                 valid = false; //Dead code as is supposed to be false inside this. Come on, just in case.
                 input.close();
-                break; //If tried number of attempts reachs 5, Breaks the cycle to close the program.
             }
         }
 

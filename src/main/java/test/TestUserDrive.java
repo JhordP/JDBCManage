@@ -31,7 +31,7 @@ import domain.Login;
  */
 
 public class TestUserDrive {
-    public static void main(String[] args) {
+    public static void main() {
         var input = new Scanner(System.in);
         LoginDAO loginDAO = new LoginDAO();
         Login usr = new Login();

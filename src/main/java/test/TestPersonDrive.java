@@ -7,7 +7,7 @@ import domain.Login;
 import domain.Person;
 
 public class TestPersonDrive {
-    public static void main(String[] args) {
+    public static void main() {
         Scanner input = new Scanner(System.in);
         List<Person> persons = new ArrayList<>();
         PersonDAO personDAO = new PersonDAO();
@@ -45,7 +45,8 @@ public class TestPersonDrive {
             System.out.println("Too much login attempts. The program will shut down...");
         }
 
-        
+        //Below there is just tests about when learning the connections to the DB.
+
         //#region
         //Inserting
         // var person = new Person(name, lastName, email, phone);

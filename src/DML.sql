@@ -37,3 +37,4 @@ PRIMARY KEY(id)
 
 SELECT * FROM login;
 
+INSERT INTO login(username, passw) VALUES ("user", "admin");
