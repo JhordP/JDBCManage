@@ -165,15 +165,45 @@ public class LoginDAO {
     }
 
     public boolean validate(Login user) {
+        //Login usr = new Login();
+        var input = new Scanner(System.in);
         List<Login> users = select();
         boolean valid = false;
-        for (Login usr : users) {
-            if ((user.getUsername().equals(usr.getUsername())) && (user.getPassw().equals(usr.getPassw()))) 
+        int attempts = 1;
+
+        for (Login credential : users) {
+            if ((user.getUsername().equals(credential.getUsername())) && (user.getPassw().equals(credential.getPassw()))) 
             {
                 valid = true;
             }
         }
+        
+        while (!valid) {
+            System.out.println("Login Access Denied: Wrong username or password.");
+            System.out.print("Enter username: ");
+            user.setUsername(input.next());
+            System.out.print("Enter password: ");
+            user.setPassw(input.next());
 
+            //validate(user); //Decided to not use recursivity
+            for (Login credential : users) {
+                if ((user.getUsername().equals(credential.getUsername())) && (user.getPassw().equals(credential.getPassw()))) 
+                {
+                    valid = true;
+                    break;
+                }
+            }
+            ++attempts;
+            // if (valid == false) {
+            //     ++attempts;
+            // }
+            if (attempts>4) {
+                valid = false; //Dead code as is supposed to be false inside this. Come on, just in case.
+                break; //If tried number of attempts reachs 5, Breaks the cycle to close the program.
+            }
+        }
+
+        input.close();
         if (valid) {
             return true;
         } else {
