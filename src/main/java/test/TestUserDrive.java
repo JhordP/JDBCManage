@@ -56,7 +56,7 @@ public class TestUserDrive {
                         .append("4) Dischard data [DELETE]\n");
                 System.out.println(showMenu.toString());
     
-                option = Integer.parseInt(input.nextLine()); //Takes the input
+                option = Integer.parseInt(input.next()); //Takes the input
                 users = loginDAO.menu(option); //Uses the menu operations
             } while (option < 1 || option > 4);
             input.close();
