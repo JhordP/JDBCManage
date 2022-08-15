@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import test.*;
@@ -13,7 +14,7 @@ import test.*;
  * For being able to login, you must insert a login user in the DML.sql using the INSERT script of the Line 40
 */
 public class Run {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner in = new Scanner(System.in);
         int select;
 
