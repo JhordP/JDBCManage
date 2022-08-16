@@ -1,6 +1,10 @@
 package data;
 import java.sql.*;
 
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+
 //Connection Class
 public class DatabaseConnection {
     //Connection String
@@ -10,8 +14,22 @@ public class DatabaseConnection {
     //Connection User                               //Connection Password
     private static final String JDBC_USER = "root"; private static final String JDBC_PW = "admin";    
 
-    //Uses Driver Manager to get the database connection using user and password
-    public static Connection getConnection() throws SQLException { return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PW); }
+    //Connection Pool
+    public static DataSource getDataSource() {
+        var dataSource = new BasicDataSource();
+        //Set the DB Connection info
+        dataSource.setUrl(JDBC_URL);
+        dataSource.setUsername(JDBC_USER);
+        dataSource.setPassword(JDBC_PW);
+
+        dataSource.setInitialSize(3); //Gets ready 3 db connections as soon as the app starts.
+        return dataSource;
+    }
+
+    //Uses DataSource´s getConnection.
+    public static Connection getConnection() throws SQLException { 
+        return getDataSource().getConnection(); 
+    }
 
     //Closes all the given connections
     public static void closeConnections(Connection dbconnection, Statement declaration, ResultSet queryResult) throws SQLException{ //Uses Statement

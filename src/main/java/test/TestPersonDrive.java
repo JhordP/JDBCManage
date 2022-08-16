@@ -78,12 +78,13 @@ public class TestPersonDrive {
                     .append("2) Add data [INSERT]\n")
                     .append("3) Modify existing data [UPDATE]\n")
                     .append("4) Dischard data [DELETE]\n")
-                    .append("5) Save changes");
+                    .append("5) Save changes\n")
+                    .append("0) Exit.");
             System.out.println(showMenu.toString());
 
             option = Integer.parseInt(input.next()); //Takes the input
             persons = p.menu(option); //Uses the menu operations
-        } while (option < 1 || option > 5);
+        } while (option < 1 || option > 6);
         //input.close();
 
         System.out.println("Loading data:---");

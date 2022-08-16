@@ -67,6 +67,11 @@ public class PersonUI {
                     save();
                     personList = dataAccess.select();
                     break;
+
+                case 0: 
+                System.out.println("Logging out...");
+                System.exit(0);
+
                 default:
                     System.out.println("Invalid option number. Try again.");
                     break;
