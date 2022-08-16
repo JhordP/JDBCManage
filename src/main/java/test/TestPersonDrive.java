@@ -3,16 +3,16 @@ import java.util.*;
 
 import data.DatabaseConnection;
 import data.LoginDAO;
-import data.PersonDAO;
+import data.PersonDaoJDBC;
 import data.PersonUI;
 import domain.Login;
-import domain.Person;
+import domain.PersonDTO;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TestPersonDrive {
-    private static List<Person> persons;
-    private static PersonDAO personDAO;
+    private static List<PersonDTO> persons;
+    private static PersonDaoJDBC personDAO;
 
     public static void main() throws SQLException {
         Scanner in = new Scanner(System.in);
@@ -23,7 +23,7 @@ public class TestPersonDrive {
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
-        personDAO = new PersonDAO(transactionConnection);
+        personDAO = new PersonDaoJDBC(transactionConnection);
         LoginDAO loginDAO = new LoginDAO();
         Login usr = new Login();
         boolean isValid = false;

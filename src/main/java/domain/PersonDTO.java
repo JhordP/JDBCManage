@@ -1,6 +1,6 @@
 package domain;
 
-public class Person { //Table Person
+public class PersonDTO { //Table Person
 
     //Columns
     private int personId;
@@ -9,11 +9,11 @@ public class Person { //Table Person
     private String personEmail;
     private long personPhone;
 
-    public Person(){} //Empty Constructor
-    public Person(int id){this.personId = id;} //personId constructor
+    public PersonDTO(){} //Empty Constructor
+    public PersonDTO(int id){this.personId = id;} //personId constructor
     
     //Not ID data constructor
-    public Person(String personName, String personLastname, String personEmail, long personPhone ) {
+    public PersonDTO(String personName, String personLastname, String personEmail, long personPhone ) {
         this.personName = personName;
         this.personLastname = personLastname;
         this.personEmail = personEmail;
@@ -21,7 +21,7 @@ public class Person { //Table Person
     }
 
     //All columns constructor
-    public Person(int personId, String personName, String personLastname, String personEmail, long personPhone) {
+    public PersonDTO(int personId, String personName, String personLastname, String personEmail, long personPhone) {
         this.personId = personId;
         this.personName = personName;
         this.personLastname = personLastname;
